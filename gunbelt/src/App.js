@@ -1,17 +1,6 @@
 import React from 'react';
 import './App.css';
-import {SkillTable, CharacterSelect} from './components'
-
-const tempList = [
-    'thing one',
-    'thing two',
-    'thing three',
-    'thing four',
-    'thing five',
-    'thing six',
-    'thing seven',
-    'thing eight',
-];
+import {SkillTable, CharacterSelect, Overview} from './components'
 
 
 class App extends React.Component{
@@ -35,7 +24,7 @@ class App extends React.Component{
                         <CharacterSelect idUpdater={ (id) => this.setCharacterId(id)}/>
                     </header>
                     <div className='App-body'>
-                        <p>
+                        <p className='App-body-center'>
                             Please select a character :)
                         </p>
                     </div>
@@ -48,7 +37,12 @@ class App extends React.Component{
                     <CharacterSelect idUpdater={ (id) => this.setCharacterId(id)}/>
                 </header>
                 <div className='App-body'>
-                    <SkillTable characterId={characterId} />
+                    <div className='App-body-left'>
+                        <SkillTable characterId={characterId} />
+                    </div>
+                    <div className='App-body-center'>
+                        <Overview characterId={characterId} />
+                    </div>
                 </div>
             </div>
         );

@@ -9,7 +9,7 @@ function SkillRows({skills}){
         dark = !dark;
         for (const i in list){
             const skill = list[i];
-            if (i == 0){
+            if (i === '0'){
                 ret.push((
                     <tr className='skill-table-row' key={skill.skill}>
                         <td className={catTheme} rowSpan={list.length}>{cat}</td>

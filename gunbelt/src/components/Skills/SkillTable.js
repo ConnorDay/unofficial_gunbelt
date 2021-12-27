@@ -18,7 +18,7 @@ class SkillTable extends React.Component{
     }
 
     componentDidUpdate(prevProps){
-        if (prevProps.characterId != this.props.characterId){
+        if (prevProps.characterId !== this.props.characterId){
             this.updateSkills();
         }
     }
