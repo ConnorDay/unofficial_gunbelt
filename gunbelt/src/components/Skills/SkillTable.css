@@ -1,10 +1,15 @@
-.skill-table-header {
-    text-align: left;
-    padding: 10px;
-}
 .skill-table-data {
     text-align: left;
-    padding: 10px;
+    padding: 0 10px;
+}
+
+.skill-table{
+    height: auto;
+    font-size: 1rem;
+}
+
+.skill-table-dark{
+    background: rgba(0,0,0,0.5);
 }
 
 .skill-table-row:nth-of-type(even){

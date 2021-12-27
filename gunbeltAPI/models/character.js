@@ -6,18 +6,15 @@ const characterSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    skills: {
-        type: Object,
-        required: true
-    },
-    equipment: {
-        type: Array,
+    level: {
+        type: Number,
         required: true,
-        default: []
+        default: 1
     },
-    stats: {
-        type: Object,
-        required: true
+    hp: {
+        type: Number,
+        required: true,
+        default: 32
     }
 });
 
