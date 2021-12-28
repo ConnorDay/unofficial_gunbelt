@@ -45,7 +45,6 @@ class SkillRows extends React.Component{
             dark = !dark;
             for (const i in list){
                 const skill = list[i];
-                console.log(skill);
                 ret.push((
                     <tr className='skill-table-row' key={skill.name}>
                         {i==='0' ? <td className={catTheme} rowSpan={list.length}>{cat}</td> : null}
