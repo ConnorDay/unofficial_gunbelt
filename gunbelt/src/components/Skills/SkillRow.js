@@ -39,7 +39,9 @@ class SkillRows extends React.Component{
         const {editMode} = this.state;
         const ret = [];
         let dark = false;
-        for (const cat in skills){
+        const keys = Object.keys(skills).sort();
+        for (const j in keys){
+            const cat = keys[j];
             const list = skills[cat];
             const catTheme = dark ? 'skill-table-dark' : '';
             dark = !dark;

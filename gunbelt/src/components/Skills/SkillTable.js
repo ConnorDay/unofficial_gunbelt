@@ -41,6 +41,9 @@ class SkillTable extends React.Component{
 
             categories[skill.category].push(skill);
         });
+        for (const cat in categories){
+            categories[cat].sort( (a, b) => a.name.localeCompare(b.name));
+        }
         this.setState({skills: categories});
     }
 
