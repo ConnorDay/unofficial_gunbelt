@@ -76,6 +76,12 @@ class Overview extends React.Component{
         this.updateOverview();
     }
 
+    componentDidUpdate(prevProps){
+        if (prevProps.characterId !== this.props.characterId){
+            this.updateOverview();
+        }
+    }
+
     render(){
         const {name, hp, maxHp, level, changeAmount} = this.state;
         return (
