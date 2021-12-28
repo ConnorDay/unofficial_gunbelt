@@ -45,19 +45,20 @@ class SkillRows extends React.Component{
             dark = !dark;
             for (const i in list){
                 const skill = list[i];
+                console.log(skill);
                 ret.push((
-                    <tr className='skill-table-row' key={skill.skill}>
+                    <tr className='skill-table-row' key={skill.name}>
                         {i==='0' ? <td className={catTheme} rowSpan={list.length}>{cat}</td> : null}
-                        <td className='skill-table-data'>{skill.skill}</td>
+                        <td className='skill-table-data'>{skill.name}</td>
                         { editMode?
                             <td className='skill-table-data'>
-                                <button onClick={() => this.buttonDecrease(skill.skillId)}>-</button>
+                                <button onClick={() => this.buttonDecrease(skill.characterSkillId)}>-</button>
                             </td>
                         :null}
                         <td className='skill-table-data'>{skill.ranks}</td>
                         { editMode?
                             <td className='skill-table-data'>
-                                <button onClick={() => this.buttonIncrease(skill.skillId)}>+</button>
+                                <button onClick={() => this.buttonIncrease(skill.characterSkillId)}>+</button>
                             </td>
                         :null}
                     </tr>

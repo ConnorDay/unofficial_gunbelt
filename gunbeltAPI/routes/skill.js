@@ -74,7 +74,6 @@ router.delete('/reference', getEntryById(SkillReference, 'referenceId'), async(r
 //////////////////////
 //CHARARACTER SKILLS//
 //////////////////////
-
 router.get('/character', getEntryById(CharacterSkill, 'skillId'), async (req, res) => {
     if (res.entry === undefined){
         const query = {};
@@ -238,6 +237,57 @@ router.delete('/character', getEntryById(CharacterSkill, 'skillId'), async (req,
         res.status(500).json({message: error.message});
     }
 });
+
+//////////////
+//ROOT SKILL//
+//////////////
+
+router.get('/', async(req, res) => {
+    if (req.query.characterId === undefined){
+        res.status(400).json({message:"No character ID provided"});
+        return;
+    }
+
+    //Get all Character Skills
+    let charSkills;
+    try{
+        charSkills = await CharacterSkill.find({characterId: req.query.characterId});
+    } catch (error) {
+        res.status(500).json({message: error.message});
+        return;
+    }
+
+    //Ensure skills were acquired
+    if (charSkills.length === 0){
+        res.status(400).json({message: `Could not find skills for character with id ${req.query.characterId}`});
+        return
+    }
+
+    //Begin the join of the two tables
+    const join = []
+    for (const i in charSkills){
+        const skill = charSkills[i];
+
+        try{
+            const referenceSkill = await SkillReference.findById(skill.skillReferenceId);
+            join.push({
+                ranks: skill.ranks,
+                name: referenceSkill.name,
+                category: referenceSkill.category,
+                cost: referenceSkill.cost,
+                maxRank: referenceSkill.maxRank,
+                characterSkillId: skill._id,
+                referenceSkillId: referenceSkill._id,
+            });
+        } catch (error) {
+            res.status(500).json({message: error.message});
+            return;
+        }
+
+    }
+
+    res.json(join);
+})
 
 //////////////
 //MIDDLEWARE//

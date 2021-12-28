@@ -27,43 +27,21 @@ class SkillTable extends React.Component{
 
         let referenceIds = [];
 
-        let result = await axios.get(`${API}/skill/character`, {
+        let result = await axios.get(`${API}/skill`, {
             params:{
                 characterId: this.props.characterId
             }
         });
 
-        result.data.forEach( (e) => {
-            referenceIds.push( {
-                referenceId: e.skillReferenceId,
-                ranks: e.ranks,
-                skillId: e._id
-            });
-        });
-
-        const categories = {};
-
-        for (const i in referenceIds){
-            const e = referenceIds[i];
-            const response = await axios.get(`${API}/skill/reference`, {
-                params: {
-                    referenceId: e.referenceId
-                }
-            });
-            const reference = response.data;
-
-            if (categories[reference.category] === undefined){
-                categories[reference.category] = [];
+        const categories = {}
+        result.data.forEach( (skill) => {
+            if (categories[skill.category] === undefined){
+                categories[skill.category] = [];
             }
-            categories[reference.category].push({
-                ranks: e.ranks,
-                skill: reference.name,
-                skillId: e.skillId
-            });
-        };
 
-        this.setState({skills: categories})
-
+            categories[skill.category].push(skill);
+        });
+        this.setState({skills: categories});
     }
 
     render(){
