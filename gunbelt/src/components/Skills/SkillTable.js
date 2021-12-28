@@ -36,7 +36,8 @@ class SkillTable extends React.Component{
         result.data.forEach( (e) => {
             referenceIds.push( {
                 referenceId: e.skillReferenceId,
-                ranks: e.ranks
+                ranks: e.ranks,
+                skillId: e._id
             });
         });
 
@@ -57,6 +58,7 @@ class SkillTable extends React.Component{
             categories[reference.category].push({
                 ranks: e.ranks,
                 skill: reference.name,
+                skillId: e.skillId
             });
         };
 
@@ -66,10 +68,11 @@ class SkillTable extends React.Component{
 
     render(){
         const {skills} = this.state;
+        const {editMode} = this.props;
         return (
             <table className='skill-table'>
                 <tbody>
-                    <SkillRows skills={skills} />
+                    <SkillRows update={()=>this.updateSkills()} skills={skills} editMode={editMode}/>
                 </tbody>
             </table>
         )

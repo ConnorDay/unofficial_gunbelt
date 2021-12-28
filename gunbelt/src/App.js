@@ -22,7 +22,6 @@ class App extends React.Component{
 
     render() {
         const {characterId, editMode} = this.state;
-        console.log(editMode);
         return( 
             <div className="App">
                 <header className="App-header">
