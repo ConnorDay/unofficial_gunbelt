@@ -4,8 +4,9 @@
 }
 
 .skill-table{
-    height: auto;
+    height: 100%;
     font-size: 1rem;
+    overflow-y: scroll;
 }
 
 .skill-table-dark{

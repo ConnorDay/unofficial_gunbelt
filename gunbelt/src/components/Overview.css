@@ -1,0 +1,53 @@
+.Overview{
+    display: inline-flex;
+    min-width: 20%;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 10%;
+    padding: 10px;
+    outline: 3px solid rgba(0,0,0,.25);
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.Overview-left{
+    flex: 100%;
+    text-align: left;
+}
+.Overview-right{
+    flex: 100%;
+    text-align: right;
+}
+
+.Overview-input{
+    width: 40px;
+}
+
+.Overview-adjust{
+    display: flex;
+    flex-direction: row;
+}
+.Overview-adjust *{
+    margin: 0;
+    flex: 100%;
+}
+
+.Overview-header{
+    display: flex;
+    flex-direction: row;
+}
+.Overview-header *{
+    margin:0;
+}
+
+.Overview-health{
+    display: flex;
+    flex-direction: row;
+}
+.Overview-health *{
+    margin:0;
+}
