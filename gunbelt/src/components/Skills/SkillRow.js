@@ -51,6 +51,9 @@ class SkillRows extends React.Component{
                     <tr className='skill-table-row' key={skill.name}>
                         {i==='0' ? <td className={catTheme} rowSpan={list.length}>{cat}</td> : null}
                         <td className='skill-table-data'>{skill.name}</td>
+                        { editMode? 
+                            <td className='skill-table-data'>{skill.cost}</td>
+                        :null}
                         { editMode?
                             <td className='skill-table-data'>
                                 <button onClick={() => this.buttonDecrease(skill.characterSkillId)}>-</button>
@@ -59,7 +62,7 @@ class SkillRows extends React.Component{
                         <td className='skill-table-data'>{skill.ranks}</td>
                         { editMode?
                             <td className='skill-table-data'>
-                                <button onClick={() => this.buttonIncrease(skill.characterSkillId)}>+</button>
+                                <button onClick={() => this.buttonIncrease(skill.characterSkillId)} disabled={skill.ranks === skill.maxRank}>+</button>
                             </td>
                         :null}
                     </tr>
