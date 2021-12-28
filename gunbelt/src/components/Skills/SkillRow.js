@@ -19,8 +19,13 @@ class SkillRows extends React.Component{
         });
         this.props.update();
     }
-    buttonDecrease(id){
-        console.log('click');
+    async buttonDecrease(id){
+        await axios.post(`${API}/skill/character/decrease`,{},{
+            params:{
+                skillId:id
+            }
+        });
+        this.props.update();
     }
 
     componentDidUpdate(prevProps){

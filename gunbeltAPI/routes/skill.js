@@ -181,6 +181,30 @@ router.post('/character/increase', getEntryById(CharacterSkill, 'skillId'), asyn
     }
 
 })
+router.post('/character/decrease', getEntryById(CharacterSkill, 'skillId'), async (req, res) => {
+    //Check that a skill was provided
+    if (res.entry === undefined){
+        res.status(400).json({message: "No skillId provided"});
+        return;
+    }
+
+    //Check to make sure a skill isn't already 0
+    if (res.entry.ranks <= 0){
+        //Change nothing
+        res.json(res.entry);
+        return;
+    }
+
+    //Decrement skill rank and send response
+    try {
+        res.entry.ranks--;
+        const newSkill = await res.entry.save();
+        res.json(newSkill);
+    } catch (error) {
+        res.status(500).json({message: error.message});
+        return;
+    }
+});
 
 router.patch('/character', getEntryById(CharacterSkill, 'skillId'), async (req, res) => {
     if (res.entry === undefined){
