@@ -2,8 +2,6 @@ import './Overview.css';
 import React from 'react';
 import axios from 'axios';
 
-const API = 'http://localhost:3001/api';
-
 class Overview extends React.Component{
     constructor( props ){
         super(props);
@@ -45,9 +43,13 @@ class Overview extends React.Component{
             }
         });
 
-        const {name, hp, level} = result.data;
+        let {name, hp, level} = result.data;
 
         const maxHp = await this.getMaxHp();
+        if (hp > maxHp){
+            await axios.patch('api/character', {hp: maxHp}, {params:{character: characterId}});
+            hp = maxHp
+        }
 
         this.setState({name:name, hp:hp, level:level, maxHp:maxHp});
     }
@@ -77,7 +79,8 @@ class Overview extends React.Component{
     }
 
     componentDidUpdate(prevProps){
-        if (prevProps.characterId !== this.props.characterId){
+        if (prevProps.characterId !== this.props.characterId || this.props.skillsUpdated){
+            this.props.skillsUpdated = false;
             this.updateOverview();
         }
     }

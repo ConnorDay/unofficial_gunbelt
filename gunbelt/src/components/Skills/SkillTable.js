@@ -3,8 +3,6 @@ import axios from 'axios';
 import './SkillTable.css'
 import {default as SkillRows} from './SkillRow';
 
-const API = 'http://localhost:3001/api';
-
 class SkillTable extends React.Component{
     constructor(props){
         super(props);
@@ -25,8 +23,6 @@ class SkillTable extends React.Component{
 
     async updateSkills(){
 
-        let referenceIds = [];
-
         let result = await axios.get(`api/skill`, {
             params:{
                 characterId: this.props.characterId
@@ -44,6 +40,7 @@ class SkillTable extends React.Component{
         for (const cat in categories){
             categories[cat].sort( (a, b) => a.name.localeCompare(b.name));
         }
+        this.props.onUpdate()
         this.setState({skills: categories});
     }
 
