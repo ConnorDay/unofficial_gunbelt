@@ -4,9 +4,12 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const path = require('path');
 const cors = require('cors');
 
 app.use(cors());
+
+app.use(express.static(path.join(__dirname, '..', 'gunbelt', 'build')));
 
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true} );
 const db = mongoose.connection;
@@ -22,5 +25,9 @@ app.use('/api/character', charcterRouter);
 const skillRouter = require('./routes/skill.js');
 app.use('/api/skill', skillRouter);
 
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "..","gunbelt","build", "index.html"))
+})
 
-app.listen(3001, () => console.log('Server has started'));
+
+app.listen(3000, () => console.log('Server has started'));

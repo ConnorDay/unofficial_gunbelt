@@ -18,13 +18,13 @@ class Overview extends React.Component{
 
     async getMaxHp(){
         const {characterId} = this.props;
-        let reference = (await axios.get(`${API}/skill/reference`)).data;
+        let reference = (await axios.get(`api/skill/reference`)).data;
 
         let toughness = reference.find( (ref) => {
             return ref.name === 'Toughness';
         })._id;
 
-        let skills = (await axios.get(`${API}/skill/character`, {
+        let skills = (await axios.get(`api/skill/character`, {
             params:{
                 characterId: characterId
             }
@@ -39,7 +39,7 @@ class Overview extends React.Component{
 
     async updateOverview(){
         const {characterId} = this.props;
-        let result = await axios.get(`${API}/character`, {
+        let result = await axios.get(`api/character`, {
             params:{
                 character: characterId
             }
@@ -65,7 +65,7 @@ class Overview extends React.Component{
         if (hp + amountToChange > maxHp){
             amountToChange = maxHp - hp;
         }
-        axios.patch(`${API}/character`, {hp: hp + amountToChange}, {params:{character: characterId}});
+        axios.patch(`api/character`, {hp: hp + amountToChange}, {params:{character: characterId}});
         this.setState({
             changeAmount: '',
             hp: hp + amountToChange

@@ -27,7 +27,7 @@ class SkillTable extends React.Component{
 
         let referenceIds = [];
 
-        let result = await axios.get(`${API}/skill`, {
+        let result = await axios.get(`api/skill`, {
             params:{
                 characterId: this.props.characterId
             }

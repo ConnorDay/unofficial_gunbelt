@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-const API = 'http://localhost:3001/api';
 
 class SkillRows extends React.Component{
     constructor( props ){
@@ -12,7 +11,7 @@ class SkillRows extends React.Component{
     }
 
     async buttonIncrease(id){
-        await axios.post(`${API}/skill/character/increase`,{},{
+        await axios.post(`api/skill/character/increase`,{},{
             params:{
                 skillId:id
             }
@@ -20,7 +19,7 @@ class SkillRows extends React.Component{
         this.props.update();
     }
     async buttonDecrease(id){
-        await axios.post(`${API}/skill/character/decrease`,{},{
+        await axios.post(`api/skill/character/decrease`,{},{
             params:{
                 skillId:id
             }
