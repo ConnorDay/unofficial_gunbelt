@@ -1,8 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 
-const API = 'http://localhost:3001/api';
-
 class CharacterSelect extends React.Component{
     constructor( props ){
         super( props )
@@ -12,7 +10,7 @@ class CharacterSelect extends React.Component{
         };
     }
     componentDidMount(){
-        axios.get(`${API}/character/name`)
+        axios.get(`api/character/name`)
         .then( (result) => {
             this.setState({characters: result.data});
         })

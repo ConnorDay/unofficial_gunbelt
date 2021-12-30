@@ -260,8 +260,18 @@ router.get('/', async(req, res) => {
     //Ensure skills were acquired
     if (charSkills.length === 0){
         res.status(400).json({message: `Could not find skills for character with id ${req.query.characterId}`});
-        return
+        return;
     }
+
+    //Get Character Level
+    let char;
+    try{
+        char = await Character.findById(req.query.characterId);
+    } catch(error) {
+        res.status(500).json({message: error.message});
+        return;
+    }
+
 
     //Begin the join of the two tables
     const join = []
@@ -275,7 +285,7 @@ router.get('/', async(req, res) => {
                 name: referenceSkill.name,
                 category: referenceSkill.category,
                 cost: referenceSkill.cost,
-                maxRank: referenceSkill.maxRank,
+                maxRank: referenceSkill.maxRank < 0 ? -referenceSkill.maxRank + char.level : referenceSkill.maxRank,
                 characterSkillId: skill._id,
                 referenceSkillId: referenceSkill._id,
             });
