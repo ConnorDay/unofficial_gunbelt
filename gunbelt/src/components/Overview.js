@@ -43,9 +43,13 @@ class Overview extends React.Component{
             }
         });
 
-        const {name, hp, level} = result.data;
+        let {name, hp, level} = result.data;
 
         const maxHp = await this.getMaxHp();
+        if (hp > maxHp){
+            await axios.patch('api/character', {hp: maxHp}, {params:{character: characterId}});
+            hp = maxHp
+        }
 
         this.setState({name:name, hp:hp, level:level, maxHp:maxHp});
     }
