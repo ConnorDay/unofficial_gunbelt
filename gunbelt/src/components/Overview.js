@@ -2,8 +2,6 @@ import './Overview.css';
 import React from 'react';
 import axios from 'axios';
 
-const API = 'http://localhost:3001/api';
-
 class Overview extends React.Component{
     constructor( props ){
         super(props);
@@ -77,7 +75,8 @@ class Overview extends React.Component{
     }
 
     componentDidUpdate(prevProps){
-        if (prevProps.characterId !== this.props.characterId){
+        if (prevProps.characterId !== this.props.characterId || this.props.skillsUpdated){
+            this.props.skillsUpdated = false;
             this.updateOverview();
         }
     }
