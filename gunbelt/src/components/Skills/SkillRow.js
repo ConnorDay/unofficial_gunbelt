@@ -33,9 +33,16 @@ class SkillRows extends React.Component{
         }
     }
 
+    ifEdit( toAdd ){
+        const {editMode} = this.state;
+        if (editMode){
+            return toAdd;
+        }
+        return null;
+    }
+
     render(){
         const {skills} = this.props;
-        const {editMode} = this.state;
         const ret = [];
         let dark = false;
         const keys = Object.keys(skills).sort();
@@ -50,20 +57,12 @@ class SkillRows extends React.Component{
                     <tr className='skill-table-row' key={skill.name}>
                         {i==='0' ? <td className={catTheme} rowSpan={list.length}>{cat}</td> : null}
                         <td className='skill-table-data'>{skill.name}</td>
-                        { editMode? 
-                            <td className='skill-table-data'>{skill.cost}</td>
-                        :null}
-                        { editMode?
-                            <td className='skill-table-data'>
-                                <button onClick={() => this.buttonDecrease(skill.characterSkillId)}>-</button>
-                            </td>
-                        :null}
-                        <td className='skill-table-data'>{skill.ranks}</td>
-                        { editMode?
-                            <td className='skill-table-data'>
-                                <button onClick={() => this.buttonIncrease(skill.characterSkillId)} disabled={skill.ranks === skill.maxRank}>+</button>
-                            </td>
-                        :null}
+                        <td className='skill-table-data'>
+                            {this.ifEdit(<button onClick={() => this.buttonDecrease(skill.characterSkillId)}>-</button>)}
+                            {skill.ranks}
+                            {this.ifEdit(<button onClick={() => this.buttonIncrease(skill.characterSkillId)} disabled={skill.ranks === skill.maxRank}>+</button>)}
+                        </td>
+                        {this.ifEdit(<td className='skill-table-data'>{skill.cost}</td>)}
                     </tr>
                 ))
             }

@@ -60,18 +60,35 @@ class Overview extends React.Component{
         });
     }
 
-    buttonPress(mult){
+    async changeHealth(mult){
         const {hp, maxHp, changeAmount} = this.state;
         const {characterId} = this.props;
         let amountToChange = changeAmount * mult;
         if (hp + amountToChange > maxHp){
             amountToChange = maxHp - hp;
         }
-        axios.patch(`api/character`, {hp: hp + amountToChange}, {params:{character: characterId}});
+        let response = await axios.patch(`api/character`, {hp: hp + amountToChange}, {params:{character: characterId}})
         this.setState({
             changeAmount: '',
-            hp: hp + amountToChange
+            hp: response.data.hp
         });
+    }
+
+    async changeLevel( amount ){
+        const {level} = this.state;
+        if (level + amount <= 0){
+            amount = 1 - level
+        } else if (level + amount > 20){
+            amount = level - 20
+        }
+        const {characterId} = this.props;
+        const response = await axios.patch(`api/character`, {level: level + amount}, {params:{character: characterId}});
+
+        this.setState({
+            level: response.data.level
+        });
+
+        this.props.onUpdate();
     }
 
     componentDidMount(){
@@ -85,22 +102,38 @@ class Overview extends React.Component{
         }
     }
 
+    getLevel(){
+        const {level} = this.state;
+        const {editMode} = this.props;
+        const levelP = <p className='Overview-neutal'>{level}</p>;
+        if (editMode){
+            return (
+                <>
+                    <button onClick={() => this.changeLevel(-1)}>-</button>
+                    {levelP}
+                    <button onClick={() => this.changeLevel(1)}>+</button>
+                </>
+            )
+        }
+        return levelP
+    }
+
     render(){
         const {name, hp, maxHp, level, changeAmount} = this.state;
         return (
             <div className='Overview'>
                 <div className='Overview-header'>
                     <p className='Overview-left'>{name}</p>
-                    <p className='Overview-neutal'>{level}</p>
+                    {this.getLevel()}
                 </div>
                 <div className='Overview-health'>
                     <p className='Overview-left'>{hp}</p>
                     <p className='Overview-right'>{maxHp}</p>
                 </div>
                 <div className='Overview-adjust'>
-                    <div><button onClick={() => this.buttonPress(-1)}>harm</button></div>
+                    <div><button onClick={() => this.changeHealth(-1)}>harm</button></div>
                     <div><input type='number' value={changeAmount} onChange={(e) => this.handleChange(e)} className='Overview-input'></input></div>
-                    <div><button onClick={() => this.buttonPress(1)}>heal</button></div>
+                    <div><button onClick={() => this.changeHealth(1)}>heal</button></div>
                 </div>
             </div>
         )

@@ -9,7 +9,8 @@ class App extends React.Component{
         this.state = {
             characterId: null,
             editMode: false,
-            skillsUpdated: false
+            skillsUpdated: false,
+            levelUpdated: false
         }
     }
 
@@ -24,9 +25,12 @@ class App extends React.Component{
     setSkillsUpdated(){
         this.setState({skillsUpdated: true});
     }
+    setLevelUpdated(){
+        this.setState({levelUpdated: true});
+    }
 
     render() {
-        const {characterId, skillsUpdated, editMode} = this.state;
+        const {characterId, skillsUpdated, editMode, levelUpdated} = this.state;
         return( 
             <div className="App">
                 <header className="App-header">
@@ -41,10 +45,10 @@ class App extends React.Component{
                         :
                         <>
                             <div className='App-body-left'>
-                                <SkillTable characterId={characterId} onUpdate={() => this.setSkillsUpdated()} editMode={editMode}/>
+                                <SkillTable characterId={characterId} onUpdate={() => this.setSkillsUpdated()} levelUpdated={levelUpdated} editMode={editMode}/>
                             </div>
                             <div className='App-body-center'>
-                                <Overview characterId={characterId} skillsUpdated={skillsUpdated} editMode={editMode}/>
+                                <Overview characterId={characterId} onUpdate={() => this.setLevelUpdated()} skillsUpdated={skillsUpdated} editMode={editMode}/>
                             </div>
                         </>
                     }

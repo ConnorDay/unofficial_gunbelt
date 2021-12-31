@@ -25,6 +25,9 @@ app.use('/api/character', charcterRouter);
 const skillRouter = require('./routes/skill.js');
 app.use('/api/skill', skillRouter);
 
+const rollRouter = require('./routes/roll.js');
+app.use('/api/roll', rollRouter);
+
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "..","gunbelt","build", "index.html"))
 })

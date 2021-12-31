@@ -1,2 +1,4 @@
 gunbelt/node_modules
 gunbeltAPI/node_modules
+*.env
+gunbeltAPI/.env
