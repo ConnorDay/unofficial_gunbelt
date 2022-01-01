@@ -288,6 +288,7 @@ router.get('/', async(req, res) => {
                 maxRank: referenceSkill.maxRank < 0 ? -referenceSkill.maxRank + char.level : referenceSkill.maxRank,
                 characterSkillId: skill._id,
                 referenceSkillId: referenceSkill._id,
+                characterId: skill.characterId
             });
         } catch (error) {
             res.status(500).json({message: error.message});
