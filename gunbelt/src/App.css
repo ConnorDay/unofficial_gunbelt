@@ -27,6 +27,10 @@
     overflow-y: scroll;
 }
 
+.App-body-right{
+    height: 100%
+}
+
 .App-header {
     background-color: rgba(0,0,0,0.25);
     min-width: 100%;
