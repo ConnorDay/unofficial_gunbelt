@@ -36,7 +36,7 @@ class Overview extends React.Component{
     }
 
     async updateOverview(){
-        const {characterId} = this.props;
+        const {characterId, onFinishUpdate} = this.props;
         let result = await axios.get(`api/character`, {
             params:{
                 character: characterId
@@ -52,6 +52,7 @@ class Overview extends React.Component{
         }
 
         this.setState({name:name, hp:hp, level:level, maxHp:maxHp});
+        onFinishUpdate();
     }
 
     handleChange(event){
@@ -62,7 +63,7 @@ class Overview extends React.Component{
 
     async changeHealth(mult){
         const {hp, maxHp, changeAmount} = this.state;
-        const {characterId} = this.props;
+        const {characterId, onUpdate} = this.props;
         let amountToChange = changeAmount * mult;
         if (hp + amountToChange > maxHp){
             amountToChange = maxHp - hp;
@@ -72,6 +73,7 @@ class Overview extends React.Component{
             changeAmount: '',
             hp: response.data.hp
         });
+        onUpdate();
     }
 
     async changeLevel( amount ){
@@ -97,7 +99,6 @@ class Overview extends React.Component{
 
     componentDidUpdate(prevProps){
         if (prevProps.characterId !== this.props.characterId || this.props.skillsUpdated){
-            this.props.skillsUpdated = false;
             this.updateOverview();
         }
     }
