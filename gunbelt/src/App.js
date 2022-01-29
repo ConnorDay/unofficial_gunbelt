@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {SkillTable, CharacterSelect, Overview} from './components'
+import {DiceTable, SkillTable, CharacterSelect, Overview} from './components'
 
 
 class App extends React.Component{
@@ -49,6 +49,9 @@ class App extends React.Component{
                             </div>
                             <div className='App-body-center'>
                                 <Overview characterId={characterId} onUpdate={() => this.setLevelUpdated( true )} onFinishUpdate={() => this.setSkillsUpdated(false)} skillsUpdated={skillsUpdated} editMode={editMode}/>
+                            </div>
+                            <div className='App-body-right'>
+                                <DiceTable characterId={characterId} />
                             </div>
                         </>
                     }

@@ -67,7 +67,11 @@ class SkillRows extends React.Component{
         const {skills} = this.props;
         const ret = [];
         let dark = false;
-        const keys = Object.keys(skills).sort();
+        if (skills === undefined){
+            return <></>;
+        }
+        const keys = Object.keys(skills)?.sort();
+
         for (const j in keys){
             const cat = keys[j];
             const list = skills[cat];

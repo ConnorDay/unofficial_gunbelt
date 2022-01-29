@@ -23,7 +23,6 @@ class SkillTable extends React.Component{
     }
 
     async updateSkills(){
-
         let result = await axios.get(`api/skill`, {
             params:{
                 characterId: this.props.characterId
