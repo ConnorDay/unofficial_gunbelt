@@ -41,7 +41,7 @@ class SkillTable extends React.Component{
         for (const cat in categories){
             categories[cat].sort( (a, b) => a.name.localeCompare(b.name));
         }
-        this.props.onUpdate()
+        this.props.onFinishUpdate();
         this.setState({skills: categories});
     }
 
@@ -51,7 +51,7 @@ class SkillTable extends React.Component{
         return (
             <table className='skill-table'>
                 <tbody>
-                    <SkillRows update={()=>this.updateSkills()} skills={skills} editMode={editMode}/>
+                    <SkillRows update={()=>{this.updateSkills(); this.props.onUpdate()}} skills={skills} editMode={editMode}/>
                 </tbody>
             </table>
         )
