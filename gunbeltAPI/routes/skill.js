@@ -123,6 +123,7 @@ router.post('/character/increase', getEntryById(CharacterSkill, 'skillId'), asyn
         return;
     }
     const totalSkillPoints = 42 + 6 * (char.level - 1);
+    console.log(totalSkillPoints);
 
     //Check if the skill is max level
     let chosenReference;
@@ -165,7 +166,7 @@ router.post('/character/increase', getEntryById(CharacterSkill, 'skillId'), asyn
     const availablePoints = totalSkillPoints - spentSkillPoints;
     if (chosenReference.cost > availablePoints){
         //not enough points, change nothing
-        res.json(res.entry);
+        res.json(spentSkillPoints);
         return;
     }
 
@@ -173,7 +174,7 @@ router.post('/character/increase', getEntryById(CharacterSkill, 'skillId'), asyn
     try {
         res.entry.ranks++;
         const newSkill = await res.entry.save();
-        res.json(newSkill);
+        res.json(spentSkillPoints + chosenReference.cost);
     } catch (error) {
         res.status(500).json({message: error.message});
         return;
