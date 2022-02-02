@@ -66,9 +66,10 @@ class SkillRows extends React.Component{
     render(){
         const {skill} = this.props;
         return (
-            <tr className='skill-table-row' key={skill.name}>
+            <>
                 <td className='skill-table-data'>{skill.name}</td>
-            </tr>
+                <td className='skill-table-data'>{skill.ranks}</td>
+            </>
         )
     }
 }

@@ -50,17 +50,27 @@ class SkillTable extends React.Component{
 
         const ret =[];
         let dark = false;
-        const keys = Object.keys(skills).sort();
+        //This is so that categories show up alphabetically
+        const keys = Object.keys(skills).sort(); 
 
         //Iterate over each category
         keys.forEach( (category) => {
+            //Add the category
+            const theme = dark ? 'skill-table-dark' : '';
+            dark = !dark;
+            let addCat = true;
+            let cat = (<td className={theme} rowSpan={skills[category].length}>{category}</td>);
 
             //Iterate over each skill in the category
-            skills[category].forEach( (skill) => {
+            for (const skill of skills[category]){
                 ret.push((
-                    <SkillRows skill={skill}/>
+                    <tr className='skill-table-row' key={skill.name}>
+                        {cat}
+                        <SkillRows skill={skill}/>
+                    </tr>
                 ));
-            });
+                cat = (<></>);
+            }
         });
 
         return ret;
