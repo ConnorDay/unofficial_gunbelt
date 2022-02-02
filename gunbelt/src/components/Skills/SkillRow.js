@@ -10,21 +10,21 @@ class SkillRows extends React.Component{
         this.updated = false;
     }
 
-    async buttonIncrease(id){
-        await axios.post(`api/skill/character/increase`,{},{
+    async buttonChange( increase ){
+        const direction = increase ? 'increase' : 'decrease';
+        await axios.post(`api/skill/character/${direction}`,{},{
             params:{
-                skillId:id
+                skillId:this.props.skill.characterSkillId
             }
         });
         this.props.update();
     }
-    async buttonDecrease(id){
-        await axios.post(`api/skill/character/decrease`,{},{
-            params:{
-                skillId:id
-            }
-        });
-        this.props.update();
+
+    async buttonIncrease(){
+        this.buttonChange(true)
+    }
+    async buttonDecrease(){
+        this.buttonChange(false)
     }
 
     componentDidUpdate(prevProps){
@@ -41,7 +41,8 @@ class SkillRows extends React.Component{
         return onNotEdit;
     }
 
-    roll( skill ){
+    roll(){
+        const {skill} = this.props;
         axios.post('/api/roll', {
             characterId: skill.characterId,
             rolls:[
@@ -70,28 +71,22 @@ class SkillRows extends React.Component{
                 <td className='skill-table-data'>{skill.name}</td>
                 <td className='skill-table-data'>
                     {
-                        //Decrease Button
                         this.ifEdit(
-                            <button onClick={() => this.buttonDecrease()}>-</button>
-                        )
-                    }
-                    {
-                        //Ranks
-                        this.ifEdit(
-                            skill.ranks,
-                            <button onClick={() => this.buttonDecrease()}>{skill.ranks}</button>
-                        )
-                    }
-                    {
-                        //Increase Button
-                        this.ifEdit(
-                            <button onClick={() => this.buttonDecrease()}>-</button>
+                            <>
+                                <button onClick={() => this.buttonDecrease()}>-</button>
+                                {skill.ranks}
+                                <button onClick={() => this.buttonIncrease()}>+</button>
+                            </>,
+                            <button onClick={() => this.skill()}>{skill.ranks}</button>
                         )
                     }
                 </td>
-                {this.ifEdit(
-                    <td className='skill-table-data'>{skill.cost}</td>
-                )}
+                {
+                    //Cost
+                    this.ifEdit(
+                        <td className='skill-table-data'>{skill.cost}</td>
+                    )
+                }
             </>
         )
     }
