@@ -55,10 +55,9 @@ class SkillTable extends React.Component{
 
         //Iterate over each category
         keys.forEach( (category) => {
-            //Add the category
+            //create the category
             const theme = dark ? 'skill-table-dark' : '';
             dark = !dark;
-            let addCat = true;
             let cat = (<td className={theme} rowSpan={skills[category].length}>{category}</td>);
 
             //Iterate over each skill in the category
@@ -69,6 +68,7 @@ class SkillTable extends React.Component{
                         <SkillRows skill={skill}/>
                     </tr>
                 ));
+                //Make category a one-shot
                 cat = (<></>);
             }
         });
