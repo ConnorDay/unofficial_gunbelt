@@ -27,7 +27,7 @@ class SkillRows extends React.Component{
         this.props.update();
     }
 
-    componentDidUpdate(prevProps){
+    componentDid1Update(prevProps){
         if (prevProps.editMode !== this.props.editMode){
             this.setState({editMode: this.props.editMode});
         }
@@ -64,36 +64,12 @@ class SkillRows extends React.Component{
     }
 
     render(){
-        const {skills} = this.props;
-        const ret = [];
-        let dark = false;
-        if (skills === undefined){
-            return <></>;
-        }
-        const keys = Object.keys(skills)?.sort();
-
-        for (const j in keys){
-            const cat = keys[j];
-            const list = skills[cat];
-            const catTheme = dark ? 'skill-table-dark' : '';
-            dark = !dark;
-            for (const i in list){
-                const skill = list[i];
-                ret.push((
-                    <tr className='skill-table-row' key={skill.name}>
-                        {i==='0' ? <td className={catTheme} rowSpan={list.length}>{cat}</td> : null}
-                        <td className='skill-table-data'>{skill.name}</td>
-                        <td className='skill-table-data'>
-                            {this.ifEdit(<button onClick={() => this.buttonDecrease(skill.characterSkillId)}>-</button>)}
-                            {this.ifEdit(skill.ranks, <button onClick={() => this.roll(skill)}>{skill.ranks}</button>)}
-                            {this.ifEdit(<button onClick={() => this.buttonIncrease(skill.characterSkillId)} disabled={skill.ranks === skill.maxRank}>+</button>)}
-                        </td>
-                        {this.ifEdit(<td className='skill-table-data'>{skill.cost}</td>)}
-                    </tr>
-                ))
-            }
-        }
-        return ret;
+        const {skill} = this.props;
+        return (
+            <tr className='skill-table-row' key={skill.name}>
+                <td className='skill-table-data'>{skill.name}</td>
+            </tr>
+        )
     }
 }
 

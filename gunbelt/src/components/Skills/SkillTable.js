@@ -44,13 +44,35 @@ class SkillTable extends React.Component{
         this.setState({skills: categories});
     }
 
+    getRows(){
+        const {skills} = this.state;
+        const {editMode} = this.props;
+
+        const ret =[];
+        let dark = false;
+        const keys = Object.keys(skills).sort();
+
+        //Iterate over each category
+        keys.forEach( (category) => {
+
+            //Iterate over each skill in the category
+            skills[category].forEach( (skill) => {
+                ret.push((
+                    <SkillRows skill={skill}/>
+                ));
+            });
+        });
+
+        return ret;
+    }
+
     render(){
         const {skills} = this.state;
         const {editMode} = this.props;
         return (
             <table className='skill-table'>
                 <tbody>
-                    <SkillRows update={()=>{this.updateSkills(); this.props.onUpdate()}} skills={skills} editMode={editMode}/>
+                    {this.getRows()}
                 </tbody>
             </table>
         )
