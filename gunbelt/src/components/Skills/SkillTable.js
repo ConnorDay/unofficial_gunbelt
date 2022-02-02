@@ -65,7 +65,7 @@ class SkillTable extends React.Component{
                 ret.push((
                     <tr className='skill-table-row' key={skill.name}>
                         {cat}
-                        <SkillRows skill={skill}/>
+                        <SkillRows skill={skill} editMode={editMode}/>
                     </tr>
                 ));
                 //Make category a one-shot

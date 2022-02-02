@@ -27,7 +27,7 @@ class SkillRows extends React.Component{
         this.props.update();
     }
 
-    componentDid1Update(prevProps){
+    componentDidUpdate(prevProps){
         if (prevProps.editMode !== this.props.editMode){
             this.setState({editMode: this.props.editMode});
         }
@@ -68,7 +68,30 @@ class SkillRows extends React.Component{
         return (
             <>
                 <td className='skill-table-data'>{skill.name}</td>
-                <td className='skill-table-data'>{skill.ranks}</td>
+                <td className='skill-table-data'>
+                    {
+                        //Decrease Button
+                        this.ifEdit(
+                            <button onClick={() => this.buttonDecrease()}>-</button>
+                        )
+                    }
+                    {
+                        //Ranks
+                        this.ifEdit(
+                            skill.ranks,
+                            <button onClick={() => this.buttonDecrease()}>{skill.ranks}</button>
+                        )
+                    }
+                    {
+                        //Increase Button
+                        this.ifEdit(
+                            <button onClick={() => this.buttonDecrease()}>-</button>
+                        )
+                    }
+                </td>
+                {this.ifEdit(
+                    <td className='skill-table-data'>{skill.cost}</td>
+                )}
             </>
         )
     }
